@@ -23,14 +23,14 @@ func (s *Server) Mounts() []environment.Mount {
 	m := []environment.Mount{
 		{
 			Default:  true,
-			Target:   "/home/container",
+			Target:   "C:\home\container",
 			Source:   s.Filesystem().Path(),
 			ReadOnly: false,
 		},
 	}
 
 	// Handle mounting a generated `/etc/passwd` if the feature is enabled.
-	if passwd := config.Get().System.Passwd; passwd.Enable {
+	/*if passwd := config.Get().System.Passwd; passwd.Enable {
 		s.Log().WithFields(log.Fields{"source_path": passwd.Directory}).Info("mouting generated /etc/{group,passwd} to workaround UID/GID issues")
 		m = append(m, environment.Mount{
 			Source:   filepath.Join(passwd.Directory, "group"),
@@ -42,7 +42,7 @@ func (s *Server) Mounts() []environment.Mount {
 			Target:   "/etc/passwd",
 			ReadOnly: true,
 		})
-	}
+	}*/
 
 	// Also include any of this server's custom mounts when returning them.
 	return append(m, s.customMounts()...)
